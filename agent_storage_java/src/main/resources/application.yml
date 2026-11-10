@@ -1,0 +1,29 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8780}
+  max-http-request-header-size: 16KB
+  tomcat:
+    max-http-form-post-size: 20MB
+    max-swallow-size: 20MB
+    threads:
+      max: 24
+spring:
+  application:
+    name: agent-storage
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      connect-timeout: 2s
+      timeout: 3s
+  jackson:
+    deserialization:
+      fail-on-trailing-tokens: true
+storage:
+  sqlite-path: ${SQLITE_PATH:runtime/storage.sqlite3}
+  service-token: ${STORAGE_SERVICE_TOKEN:}
+logging:
+  level:
+    root: INFO
+    io.lettuce.core: WARN

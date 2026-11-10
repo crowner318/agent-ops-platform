@@ -1,0 +1,6 @@
+{
+  "ops_project": "../it_ops_agent_fixed_v1_2",
+  "release_project": "../release_risk_agent",
+  "python_executable": "../release_risk_agent/.venv/Scripts/python.exe",
+  "runtime_dir": "runtime"
+}

@@ -1,0 +1,20 @@
+FROM registry-1.docker.io/library/python:3.14-slim
+ENV PYTHONUTF8=1 PYTHONIOENCODING=utf-8 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 LANGSMITH_TRACING=false
+WORKDIR /app
+COPY release_risk_agent/requirements.txt /tmp/release-requirements.txt
+COPY it_ops_agent_fixed_v1_2/requirements.txt /tmp/ops-requirements.txt
+RUN python -m pip install --no-cache-dir --only-binary=:all: -r /tmp/release-requirements.txt -r /tmp/ops-requirements.txt confluent-kafka==2.16.1
+COPY agent_workbench/run_workbench.py /app/agent_workbench/run_workbench.py
+COPY agent_workbench/workbench /app/agent_workbench/workbench
+COPY agent_workbench/web /app/agent_workbench/web
+COPY it_ops_agent_fixed_v1_2 /app/it_ops_agent_fixed_v1_2
+COPY release_risk_agent /app/release_risk_agent
+COPY agent_platform/entrypoint.py /app/platform/entrypoint.py
+COPY agent_platform/healthcheck.py /app/platform/healthcheck.py
+RUN cp /app/it_ops_agent_fixed_v1_2/settings.example.py /app/it_ops_agent_fixed_v1_2/settings.py \
+    && cp /app/release_risk_agent/settings.example.py /app/release_risk_agent/settings.py \
+    && groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app \
+    && mkdir -p /data/worker && chown -R app:app /data/worker
+USER 10001:10001
+EXPOSE 8765
+ENTRYPOINT ["python", "/app/platform/entrypoint.py"]
