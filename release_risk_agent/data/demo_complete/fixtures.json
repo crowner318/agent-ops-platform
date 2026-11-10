@@ -1,0 +1,772 @@
+{
+  "snapshot_id": "release-demo-complete-v2",
+  "changes": {
+    "risk-pool": {
+      "scope": {
+        "change_id": "risk-pool",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-complete-v2"
+      },
+      "as_of": "2026-11-06T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "risk-pool-release",
+            "kind": "release_snapshot",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 8,
+              "review_time": "2026-11-06T10:00:00+08:00",
+              "release_purpose": "演示故意误配的发布前风险检查：将连接池由50降到5，并验证目标副本需求超出依赖余量时保留阻断。",
+              "change_summary": "故意将DB_POOL_MAX从50修改为5，用于验证误配警告和40对20的容量阻断；不执行部署。",
+              "owner": {
+                "name": "演示发布负责人（虚构角色）",
+                "team": "演示运维团队（虚构）",
+                "identity_verified": false
+              },
+              "material_notice": "本包全部为synthetic演示材料，负责人和结果均为演示设定，未连接真实生产或CI系统。",
+              "rollback_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "target_version": "v2.8.0",
+                "status": "planned_not_executed",
+                "triggers": [
+                  "受控验证出现新增订单错误或延迟明显超过演示基线时停止推进。"
+                ],
+                "steps": [
+                  "由演示负责人暂停后续步骤并保存当前材料。",
+                  "经独立流程确认后恢复上一演示版本和对应配置；此程序不执行该操作。"
+                ],
+                "verification": [
+                  "按版本记录核对目标版本与配置。",
+                  "对比演示验证窗口内的错误率和延迟结果。"
+                ]
+              },
+              "validation_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "status": "planned_not_executed",
+                "before_release": [
+                  "核对当前CI与容量材料和目标版本一致。",
+                  "复核代码变化、配置差异、回退目标及责任人。"
+                ],
+                "controlled_check": [
+                  "在隔离演示环境验证订单必填字段、正常下单与回退操作步骤。"
+                ],
+                "acceptance_criteria": [
+                  "订单字段校验与正常下单演示用例通过。",
+                  "目标连接需求不超过扣除其他消费者后的可用预算。"
+                ],
+                "evidence_refs": [
+                  "risk-pool-ci",
+                  "risk-pool-capacity"
+                ]
+              }
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "risk-pool-config",
+            "kind": "config_diff",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 5,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 5
+                }
+              ],
+              "explanation": "有意保留的演示误配，不是优化建议：DB_POOL_MAX从50降到5；8个目标副本合计需求40，而演示数据库可用余量仅20。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "risk-pool-code",
+            "kind": "code_diff",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "模拟配置变更：故意将DB_POOL_MAX由50改为5，检验预发布风险规则能保留连接池骤降提示和容量阻断。没有真实仓库或部署动作。"
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "risk-pool-runbook",
+            "kind": "runbook",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-01T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "演示操作手册：按目标副本数和单副本池上限核算总连接需求，对照扣除其他消费者后的数据库余量。已有发布目的、责任人、回退和验证计划应先阅读，再核查执行结果；手册不是当前风险事实。",
+              "valid_from": "2026-11-01T00:00:00+08:00",
+              "valid_until": "2027-12-31T23:59:59+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "risk-pool-case",
+            "kind": "incident_case",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-15T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "模拟已复核历史案例：连接池调整前核对总连接需求、依赖余量和运行配置。本条仅为演示参考，不证明本次变更有相同问题。",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "risk-pool-ci",
+            "kind": "ci_checks",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "订单正常请求用例",
+                "订单缺字段校验用例",
+                "配置结构检查"
+              ],
+              "tested_version": "v2.8.1",
+              "report_description": "模拟测试记录：单元、配置结构及订单校验用例通过；不是外部CI执行日志。",
+              "source": "synthetic_demo_record"
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "risk-pool-capacity",
+            "kind": "dependency_budget",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 200,
+              "current_connections": 180,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 8,
+              "pool_max": 5,
+              "requested_connections": 40,
+              "available_connections": 20,
+              "calculation_note": "requested_connections=目标replicas×pool_max；available_connections=db_max_connections-current_connections，current_connections只含其他消费者。模拟口径在本包内一致。"
+            }
+          }
+        ]
+      }
+    },
+    "safe": {
+      "scope": {
+        "change_id": "safe",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-complete-v2"
+      },
+      "as_of": "2026-11-06T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "safe-release",
+            "kind": "release_snapshot",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 4,
+              "review_time": "2026-11-06T10:00:00+08:00",
+              "release_purpose": "演示正常应用版本升级：新增订单请求字段校验及其测试，连接池配置作为不变基线，验证资料齐全时正常完成人工阅读。",
+              "change_summary": "应用版本v2.8.0升级到v2.8.1，演示订单请求字段校验及测试变更；DB_POOL_MAX维持50，仅记录配置基线。",
+              "owner": {
+                "name": "演示发布负责人（虚构角色）",
+                "team": "演示运维团队（虚构）",
+                "identity_verified": false
+              },
+              "material_notice": "本包全部为synthetic演示材料，负责人和结果均为演示设定，未连接真实生产或CI系统。",
+              "rollback_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "target_version": "v2.8.0",
+                "status": "planned_not_executed",
+                "triggers": [
+                  "受控验证出现新增订单错误或延迟明显超过演示基线时停止推进。"
+                ],
+                "steps": [
+                  "由演示负责人暂停后续步骤并保存当前材料。",
+                  "经独立流程确认后恢复上一演示版本和对应配置；此程序不执行该操作。"
+                ],
+                "verification": [
+                  "按版本记录核对目标版本与配置。",
+                  "对比演示验证窗口内的错误率和延迟结果。"
+                ]
+              },
+              "validation_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "status": "planned_not_executed",
+                "before_release": [
+                  "核对当前CI与容量材料和目标版本一致。",
+                  "复核代码变化、配置差异、回退目标及责任人。"
+                ],
+                "controlled_check": [
+                  "在隔离演示环境验证订单必填字段、正常下单与回退操作步骤。"
+                ],
+                "acceptance_criteria": [
+                  "订单字段校验与正常下单演示用例通过。",
+                  "目标连接需求不超过扣除其他消费者后的可用预算。"
+                ],
+                "evidence_refs": [
+                  "safe-ci",
+                  "safe-capacity"
+                ]
+              },
+              "configuration_unchanged_reason": "本次是应用校验逻辑和测试的版本升级，不修改DB_POOL_MAX；配置材料用于说明当前基线，因此before和after均为50。"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "safe-config",
+            "kind": "config_diff",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 50,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 50
+                }
+              ],
+              "change_type": "unchanged_baseline",
+              "explanation": "本次是应用校验逻辑和测试的版本升级，不修改DB_POOL_MAX；配置材料用于说明当前基线，因此before和after均为50。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "safe-code",
+            "kind": "code_diff",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "order_service/request_validation.py",
+                "tests/test_order_validation.py"
+              ],
+              "summary": "模拟应用变更：增加订单必填字段校验及对应测试；连接池配置保持不变。此为演示代码摘要，不是远端仓库抓取。",
+              "change_details": [
+                "为缺少必要字段的演示请求返回参数错误。",
+                "增加正常订单与缺字段请求的演示测试说明。"
+              ]
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "safe-runbook",
+            "kind": "runbook",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-01T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "演示操作手册：按目标副本数和单副本池上限核算总连接需求，对照扣除其他消费者后的数据库余量。已有发布目的、责任人、回退和验证计划应先阅读，再核查执行结果；手册不是当前风险事实。",
+              "valid_from": "2026-11-01T00:00:00+08:00",
+              "valid_until": "2027-12-31T23:59:59+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "safe-case",
+            "kind": "incident_case",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-15T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "模拟已复核历史案例：连接池调整前核对总连接需求、依赖余量和运行配置。本条仅为演示参考，不证明本次变更有相同问题。",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "safe-ci",
+            "kind": "ci_checks",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "订单正常请求用例",
+                "订单缺字段校验用例",
+                "配置结构检查"
+              ],
+              "tested_version": "v2.8.1",
+              "report_description": "模拟测试记录：单元、配置结构及订单校验用例通过；不是外部CI执行日志。",
+              "source": "synthetic_demo_record"
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "safe-capacity",
+            "kind": "dependency_budget",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 500,
+              "current_connections": 100,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 4,
+              "pool_max": 50,
+              "requested_connections": 200,
+              "available_connections": 400,
+              "calculation_note": "requested_connections=目标replicas×pool_max；available_connections=db_max_connections-current_connections，current_connections只含其他消费者。模拟口径在本包内一致。"
+            }
+          }
+        ]
+      }
+    },
+    "missing": {
+      "scope": {
+        "change_id": "missing",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-complete-v2"
+      },
+      "as_of": "2026-11-06T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "missing-release",
+            "kind": "release_snapshot",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 4,
+              "review_time": "2026-11-06T10:00:00+08:00",
+              "release_purpose": "演示资料缺失保护：应用版本升级说明、责任人和操作计划已填写，但故意不提供当前CI结果和依赖容量，验证报告仍保留不完整状态。",
+              "change_summary": "应用版本v2.8.0升级到v2.8.1，演示订单请求字段校验及测试变更；DB_POOL_MAX维持50，仅记录配置基线。",
+              "owner": {
+                "name": "演示发布负责人（虚构角色）",
+                "team": "演示运维团队（虚构）",
+                "identity_verified": false
+              },
+              "material_notice": "本包全部为synthetic演示材料，负责人和结果均为演示设定，未连接真实生产或CI系统。",
+              "rollback_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "target_version": "v2.8.0",
+                "status": "planned_not_executed",
+                "triggers": [
+                  "受控验证出现新增订单错误或延迟明显超过演示基线时停止推进。"
+                ],
+                "steps": [
+                  "由演示负责人暂停后续步骤并保存当前材料。",
+                  "经独立流程确认后恢复上一演示版本和对应配置；此程序不执行该操作。"
+                ],
+                "verification": [
+                  "按版本记录核对目标版本与配置。",
+                  "对比演示验证窗口内的错误率和延迟结果。"
+                ]
+              },
+              "validation_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "status": "planned_not_executed",
+                "before_release": [
+                  "核对当前CI与容量材料和目标版本一致。",
+                  "复核代码变化、配置差异、回退目标及责任人。"
+                ],
+                "controlled_check": [
+                  "在隔离演示环境验证订单必填字段、正常下单与回退操作步骤。"
+                ],
+                "acceptance_criteria": [
+                  "订单字段校验与正常下单演示用例通过。",
+                  "目标连接需求不超过扣除其他消费者后的可用预算。"
+                ],
+                "evidence_refs": []
+              },
+              "configuration_unchanged_reason": "本次是应用校验逻辑和测试的版本升级，不修改DB_POOL_MAX；配置材料用于说明当前基线，因此before和after均为50。"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "missing-config",
+            "kind": "config_diff",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 50,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 50
+                }
+              ],
+              "change_type": "unchanged_baseline",
+              "explanation": "本次是应用校验逻辑和测试的版本升级，不修改DB_POOL_MAX；配置材料用于说明当前基线，因此before和after均为50。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "missing-code",
+            "kind": "code_diff",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "order_service/request_validation.py",
+                "tests/test_order_validation.py"
+              ],
+              "summary": "模拟应用变更：增加订单必填字段校验及对应测试；连接池配置保持不变。此为演示代码摘要，不是远端仓库抓取。",
+              "change_details": [
+                "为缺少必要字段的演示请求返回参数错误。",
+                "增加正常订单与缺字段请求的演示测试说明。"
+              ]
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "missing-runbook",
+            "kind": "runbook",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-11-01T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "演示操作手册：按目标副本数和单副本池上限核算总连接需求，对照扣除其他消费者后的数据库余量。已有发布目的、责任人、回退和验证计划应先阅读，再核查执行结果；手册不是当前风险事实。",
+              "valid_from": "2026-11-01T00:00:00+08:00",
+              "valid_until": "2027-12-31T23:59:59+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "missing-case",
+            "kind": "incident_case",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-15T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "模拟已复核历史案例：连接池调整前核对总连接需求、依赖余量和运行配置。本条仅为演示参考，不证明本次变更有相同问题。",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "legacy-demo": {
+      "scope": {
+        "change_id": "legacy-demo",
+        "service": "order-service",
+        "environment": "demo",
+        "snapshot_id": "release-demo-complete-v2"
+      },
+      "as_of": "2026-11-06T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "legacy-demo-release",
+            "kind": "release_snapshot",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 8,
+              "review_time": "2026-11-06T10:00:00+08:00",
+              "release_purpose": "演示故意误配的发布前风险检查：将连接池由50降到5，并验证目标副本需求超出依赖余量时保留阻断。",
+              "change_summary": "故意将DB_POOL_MAX从50修改为5，用于验证误配警告和40对20的容量阻断；不执行部署。",
+              "owner": {
+                "name": "演示发布负责人（虚构角色）",
+                "team": "演示运维团队（虚构）",
+                "identity_verified": false
+              },
+              "material_notice": "本包全部为synthetic演示材料，负责人和结果均为演示设定，未连接真实生产或CI系统。",
+              "rollback_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "target_version": "v2.8.0",
+                "status": "planned_not_executed",
+                "triggers": [
+                  "受控验证出现新增订单错误或延迟明显超过演示基线时停止推进。"
+                ],
+                "steps": [
+                  "由演示负责人暂停后续步骤并保存当前材料。",
+                  "经独立流程确认后恢复上一演示版本和对应配置；此程序不执行该操作。"
+                ],
+                "verification": [
+                  "按版本记录核对目标版本与配置。",
+                  "对比演示验证窗口内的错误率和延迟结果。"
+                ]
+              },
+              "validation_plan": {
+                "owner": "演示发布负责人（虚构角色）",
+                "status": "planned_not_executed",
+                "before_release": [
+                  "核对当前CI与容量材料和目标版本一致。",
+                  "复核代码变化、配置差异、回退目标及责任人。"
+                ],
+                "controlled_check": [
+                  "在隔离演示环境验证订单必填字段、正常下单与回退操作步骤。"
+                ],
+                "acceptance_criteria": [
+                  "订单字段校验与正常下单演示用例通过。",
+                  "目标连接需求不超过扣除其他消费者后的可用预算。"
+                ],
+                "evidence_refs": [
+                  "legacy-demo-ci",
+                  "legacy-demo-capacity"
+                ]
+              }
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "legacy-demo-config",
+            "kind": "config_diff",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 5,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 5
+                }
+              ],
+              "explanation": "有意保留的演示误配，不是优化建议：DB_POOL_MAX从50降到5；8个目标副本合计需求40，而演示数据库可用余量仅20。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "legacy-demo-code",
+            "kind": "code_diff",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "模拟配置变更：故意将DB_POOL_MAX由50改为5，检验预发布风险规则能保留连接池骤降提示和容量阻断。没有真实仓库或部署动作。"
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "legacy-demo-runbook",
+            "kind": "runbook",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-01T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "演示操作手册：按目标副本数和单副本池上限核算总连接需求，对照扣除其他消费者后的数据库余量。已有发布目的、责任人、回退和验证计划应先阅读，再核查执行结果；手册不是当前风险事实。",
+              "valid_from": "2026-11-01T00:00:00+08:00",
+              "valid_until": "2027-12-31T23:59:59+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "legacy-demo-case",
+            "kind": "incident_case",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-15T09:00:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "模拟已复核历史案例：连接池调整前核对总连接需求、依赖余量和运行配置。本条仅为演示参考，不证明本次变更有相同问题。",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "legacy-demo-ci",
+            "kind": "ci_checks",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "订单正常请求用例",
+                "订单缺字段校验用例",
+                "配置结构检查"
+              ],
+              "tested_version": "v2.8.1",
+              "report_description": "模拟测试记录：单元、配置结构及订单校验用例通过；不是外部CI执行日志。",
+              "source": "synthetic_demo_record"
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "legacy-demo-capacity",
+            "kind": "dependency_budget",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-11-06T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 200,
+              "current_connections": 180,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 8,
+              "pool_max": 5,
+              "requested_connections": 40,
+              "available_connections": 20,
+              "calculation_note": "requested_connections=目标replicas×pool_max；available_connections=db_max_connections-current_connections，current_connections只含其他消费者。模拟口径在本包内一致。"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

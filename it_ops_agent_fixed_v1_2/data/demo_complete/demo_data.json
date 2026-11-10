@@ -1,0 +1,629 @@
+{
+  "metadata": {
+    "synthetic": true,
+    "dataset_id": "complete-demo",
+    "scenario": "固定的完整演示资料包：配置缩池后的排队超时，提供支持分析的负载/持有/归还/容量/差异/责任人及未执行回退计划；不表示根因已被因果确认或生产恢复。",
+    "timezone": "Asia/Shanghai",
+    "service": "order-service",
+    "environment": "demo",
+    "start_time": "2026-10-19T09:55:00+08:00",
+    "end_time": "2026-10-19T10:20:00+08:00",
+    "data_status": "complete_review_materials_only",
+    "scope_note": "吞吐/连接持有为单实例60秒统计；数据库会话为共享数据库采样；同一时点不得混用作用域。",
+    "recovery_observations": "not_applicable_to_unexecuted_plan"
+  },
+  "metrics": [
+    {
+      "id": "m-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:56:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.002,
+      "unit": "ratio",
+      "synthetic": true,
+      "phase": "baseline"
+    },
+    {
+      "id": "m-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "request_latency_p95",
+      "value": 180,
+      "unit": "ms",
+      "synthetic": true,
+      "phase": "baseline"
+    },
+    {
+      "id": "m-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.183,
+      "unit": "ratio",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-004",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_latency_p95",
+      "value": 3150,
+      "unit": "ms",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-005",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_active",
+      "value": 5,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-006",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_max",
+      "value": 5,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-007",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_waiters",
+      "value": 86,
+      "unit": "requests",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-008",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:06:00+08:00",
+      "metric": "database_cpu",
+      "value": 0.29,
+      "unit": "ratio",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-009",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:15:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.171,
+      "unit": "ratio",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "m-order-010",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:15:00+08:00",
+      "metric": "db_pool_waiters",
+      "value": 74,
+      "unit": "requests",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "mc-throughput-base",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "request_throughput",
+      "value": 150,
+      "unit": "requests_per_second",
+      "synthetic": true,
+      "phase": "baseline",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-throughput-incident",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_throughput",
+      "value": 150,
+      "unit": "requests_per_second",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-throughput-late",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:15:00+08:00",
+      "metric": "request_throughput",
+      "value": 148,
+      "unit": "requests_per_second",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-rate-incident",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_rate",
+      "value": 150,
+      "unit": "requests_per_second",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-hold-base",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "connection_hold_time",
+      "value": 40,
+      "unit": "ms",
+      "synthetic": true,
+      "phase": "baseline",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-hold-incident",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "connection_hold_time",
+      "value": 40,
+      "unit": "ms",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-hold-p95",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "connection_hold_time_p95",
+      "value": 65,
+      "unit": "ms",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-active-base",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "db_pool_active",
+      "value": 8,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "baseline",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-max-base",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "db_pool_max",
+      "value": 50,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "baseline",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "one_order_service_instance"
+    },
+    {
+      "id": "mc-db-sessions",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_sessions",
+      "value": 68,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    },
+    {
+      "id": "mc-db-max",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_max_connections",
+      "value": 200,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    },
+    {
+      "id": "mc-db-headroom",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_connection_headroom",
+      "value": 132,
+      "unit": "connections",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    },
+    {
+      "id": "mc-db-locks",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_lock_waiters",
+      "value": 0,
+      "unit": "sessions",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    },
+    {
+      "id": "mc-db-io",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "database_io_wait",
+      "value": 0.02,
+      "unit": "ratio",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    },
+    {
+      "id": "mc-db-slow",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "database_slow_queries",
+      "value": 0,
+      "unit": "queries",
+      "synthetic": true,
+      "phase": "incident",
+      "aggregation_window_seconds": 60,
+      "measurement_scope": "shared_demo_database"
+    }
+  ],
+  "logs": [
+    {
+      "id": "l-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:58:00+08:00",
+      "level": "INFO",
+      "message": "Request completed normally; release=v2.8.0; DB_POOL_MAX=50.",
+      "synthetic": true,
+      "phase": "baseline"
+    },
+    {
+      "id": "l-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:01:00+08:00",
+      "level": "INFO",
+      "message": "Started release=v2.8.1; DB_POOL_MAX=5; DB_ACQUIRE_TIMEOUT_MS=3000.",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "l-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:04:12+08:00",
+      "level": "ERROR",
+      "message": "Database connection acquisition timeout after 3000ms; active=5; max=5; waiters=82; trace_id=trace-order-slow-01.",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "l-order-004",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:08:23+08:00",
+      "level": "ERROR",
+      "message": "POST /orders returned HTTP 504; database connection acquisition timeout; trace_id=trace-order-slow-02.",
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "lc-returns",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "level": "INFO",
+      "message": "演练采样窗口10:04-10:05、单实例：成功取得连接7353次、归还7353次；本计数未发现差额，但不证明所有路径不存在泄漏。",
+      "synthetic": true,
+      "phase": "incident",
+      "event_type": "connection_returns"
+    },
+    {
+      "id": "lc-db-sessions",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "level": "INFO",
+      "message": "演练数据库10:05会话快照：总连接上限200、当前68，其中目标4个订单副本活跃20、其他消费者48；锁等待0、I/O等待比例0.02、慢查询0，仅代表该采样。",
+      "synthetic": true,
+      "phase": "incident",
+      "event_type": "database_sessions"
+    },
+    {
+      "id": "lc-effective-config",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "level": "INFO",
+      "message": "演示配置中心与4实例运行快照一致：release=v2.8.1、DB_POOL_MAX=5、DB_ACQUIRE_TIMEOUT_MS=3000；代码diff仅配置模板改变。",
+      "synthetic": true,
+      "phase": "incident",
+      "event_type": "effective_config"
+    },
+    {
+      "id": "lc-purpose-owner",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "level": "INFO",
+      "message": "本次合成事件责任组为演示运维组，应用复核人为演示应用负责人；发布目的、完整diff、未执行的回退计划与验证步骤见c-order-001.incident_context。",
+      "synthetic": true,
+      "phase": "incident",
+      "event_type": "incident_brief"
+    },
+    {
+      "id": "lc-alert",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:04:30+08:00",
+      "level": "INFO",
+      "message": "演示监控事件：10:04连接池等待告警已生成；通知链路记录为演示接收端已收到。本记录不构成生产告警覆盖证明。",
+      "synthetic": true,
+      "phase": "incident",
+      "event_type": "alert_record"
+    }
+  ],
+  "traces": [
+    {
+      "id": "t-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:58:05+08:00",
+      "trace_id": "trace-order-normal-01",
+      "operation": "POST /orders",
+      "duration_ms": 166,
+      "status": "ok",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3
+        },
+        {
+          "name": "db.insert",
+          "duration_ms": 24
+        },
+        {
+          "name": "payment.authorize",
+          "duration_ms": 113
+        }
+      ],
+      "synthetic": true,
+      "phase": "baseline"
+    },
+    {
+      "id": "t-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:04:12+08:00",
+      "trace_id": "trace-order-slow-01",
+      "operation": "POST /orders",
+      "duration_ms": 3036,
+      "status": "error",
+      "error": "connection_acquisition_timeout",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3001,
+          "status": "error"
+        }
+      ],
+      "synthetic": true,
+      "phase": "incident"
+    },
+    {
+      "id": "t-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:08:23+08:00",
+      "trace_id": "trace-order-slow-02",
+      "operation": "POST /orders",
+      "duration_ms": 3052,
+      "status": "error",
+      "error": "connection_acquisition_timeout",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3002,
+          "status": "error"
+        }
+      ],
+      "synthetic": true,
+      "phase": "incident"
+    }
+  ],
+  "changes": [
+    {
+      "id": "c-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:00:00+08:00",
+      "change_type": "deployment",
+      "description": "Deploy v2.8.1 replacing v2.8.0; configuration template changed DB_POOL_MAX from 50 to 5.",
+      "change_id": "CHG-SYNTHETIC-1019",
+      "before": {
+        "release": "v2.8.0",
+        "DB_POOL_MAX": 50
+      },
+      "after": {
+        "release": "v2.8.1",
+        "DB_POOL_MAX": 5
+      },
+      "synthetic": true,
+      "phase": "incident",
+      "diff_complete": true,
+      "code_diff": [
+        {
+          "path": "deploy/order-service/config.yaml",
+          "change": "DB_POOL_MAX 50 -> 5"
+        },
+        {
+          "path": "application/order_handler.py",
+          "change": "无业务逻辑差异；仅用于本次合成配置变更场景"
+        }
+      ],
+      "incident_context": {
+        "release_purpose": "合成演练：模拟配置模板误把DB_POOL_MAX从50缩为5，检查助手能否据观测提出候选和验证计划。",
+        "incident_owner": "演示运维组",
+        "reviewer": "演示应用负责人",
+        "replica_count": 4,
+        "rollback_plan": {
+          "status": "proposal_only",
+          "executed": false,
+          "approved": false,
+          "proposal": "演示中先验证池上限20的灰度配置，再由独立授权流程决定是否应用；不直接恢复每副本50。",
+          "capacity_check": "4副本×20目标连接+其他消费者48=128，小于数据库上限200；该预算仅为合成评审输入，需核对实际运行。",
+          "canary": "计划先验证1个演示实例；出现新增异常停止。"
+        },
+        "validation_plan": [
+          "在隔离回放中保持请求率和连接持有时长一致，对比池5与20的等待和超时。",
+          "验证所有实例生效配置、归还路径与数据库等待，再决定操作；本资料不包含执行或恢复结果。"
+        ],
+        "approval_record": {
+          "status": "not_requested",
+          "meaning": "本次仅准备演练评审材料，未申请也未执行生产变更。"
+        },
+        "alert_review": {
+          "rules_present": true,
+          "observed_event": "演示告警记录显示10:04池等待报警；通知是否送达仅按记录描述，不推断组织流程。"
+        }
+      }
+    },
+    {
+      "id": "c-order-old",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-18T14:00:00+08:00",
+      "change_type": "deployment",
+      "description": "Earlier deployment outside incident scope.",
+      "synthetic": true,
+      "phase": "baseline"
+    }
+  ],
+  "runbooks": [
+    {
+      "id": "rb-order-pool-v3",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-09-15T12:00:00+08:00",
+      "valid_from": "2026-09-15T00:00:00+08:00",
+      "valid_until": "2026-12-31T23:59:59+08:00",
+      "title": "Connection pool saturation after release / 发布后连接池耗尽",
+      "keywords": [
+        "database",
+        "pool",
+        "timeout",
+        "rollback",
+        "连接池",
+        "超时",
+        "回滚"
+      ],
+      "content": "When acquisition latency and waiters rise, compare effective pool settings and recent configuration changes. Check total database connection headroom across all replicas before increasing pool size. Low database CPU alone does not prove database health. An approved operator must review rollback compatibility, canary scope and abort thresholds. This reference is not evidence that a current remediation succeeded.",
+      "synthetic": true
+    },
+    {
+      "id": "rb-order-generic-v1",
+      "service": "order-service",
+      "environment": "*",
+      "timestamp": "2026-08-01T12:00:00+08:00",
+      "valid_from": "2026-08-01T00:00:00+08:00",
+      "valid_until": "2027-01-01T00:00:00+08:00",
+      "title": "Request latency and timeout triage",
+      "keywords": [
+        "latency",
+        "timeout",
+        "trace",
+        "超时",
+        "链路"
+      ],
+      "content": "Correlate metrics, logs, traces and deployments within the same incident window. Separate observed facts from candidate causes. Require a change ticket and human approval for production writes.",
+      "synthetic": true
+    },
+    {
+      "id": "rb-order-expired",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2025-01-01T12:00:00+08:00",
+      "valid_from": "2025-01-01T00:00:00+08:00",
+      "valid_until": "2025-12-31T23:59:59+08:00",
+      "title": "Expired pool timeout procedure",
+      "keywords": [
+        "pool",
+        "timeout",
+        "连接池"
+      ],
+      "content": "Expired reference; must not be returned for the October 2026 incident.",
+      "synthetic": true
+    },
+    {
+      "id": "rb-payment-v1",
+      "service": "payment-service",
+      "environment": "demo",
+      "timestamp": "2026-09-01T12:00:00+08:00",
+      "valid_from": "2026-09-01T00:00:00+08:00",
+      "valid_until": "2027-01-01T00:00:00+08:00",
+      "title": "Payment latency and connection pool investigation",
+      "keywords": [
+        "payment",
+        "latency",
+        "pool",
+        "timeout",
+        "支付"
+      ],
+      "content": "Check payment traces and bank authorization latency. Investigate only observed failures; healthy samples do not imply full-service availability. Production changes require approval.",
+      "synthetic": true
+    }
+  ]
+}

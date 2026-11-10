@@ -1,0 +1,124 @@
+{
+  "snapshot_id": "public-lab-release-r01-20261110",
+  "changes": {
+    "quota-policy-20261110-r01": {
+      "scope": {
+        "change_id": "quota-policy-20261110-r01",
+        "service": "quota-policy-lab",
+        "environment": "training-preprod",
+        "snapshot_id": "public-lab-release-r01-20261110"
+      },
+      "as_of": "2026-11-10T09:40:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "r01-release",
+            "kind": "release_snapshot",
+            "change_id": "quota-policy-20261110-r01",
+            "service": "quota-policy-lab",
+            "environment": "training-preprod",
+            "timestamp": "2026-11-10T09:25:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v0.9.2-lab",
+              "previous_version": "v0.9.1-lab",
+              "status": "proposed",
+              "replicas": 3,
+              "release_purpose": "启用租户维度的配额策略查询。",
+              "change_summary": "二进制按区域部署，配额策略由独立配置流水线分发。该次变更包含策略读取分支和一批新策略记录。",
+              "owner": {"name": "配额评审演练角色", "team": "训练沙箱", "identity_verified": false},
+              "rollback_plan": {
+                "status": "planned_not_executed",
+                "target_version": "v0.9.1-lab",
+                "steps": ["暂停后续策略写入，恢复上一版策略快照。", "按区域恢复 v0.9.1-lab，并核对旧策略缓存。"]
+              },
+              "validation_plan": {
+                "status": "planned_not_executed",
+                "controlled_check": ["使用独立测试租户重放候选策略。", "观察策略查询失败率、进程重启次数和旧策略读取结果。"]
+              },
+              "material_notice": "教学沙箱的合成发布材料。服务、配置、代码、检查与容量记录均为模拟数据。"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "r01-config",
+            "kind": "config_diff",
+            "change_id": "quota-policy-20261110-r01",
+            "service": "quota-policy-lab",
+            "environment": "training-preprod",
+            "timestamp": "2026-11-10T09:28:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 12,
+              "pool_after": 12,
+              "changes": [
+                {"key": "policy_replication_scope", "before": "test-region-a", "after": "all-training-regions"},
+                {"key": "tenant_quota_check_enabled", "before": false, "after": true}
+              ],
+              "policy_update_routing": "候选配置批次的策略记录同一轮分发到全部训练区域，配置工作流未设置逐区域放量。",
+              "configuration_unchanged_reason": "本次修改策略配置，数据库连接池保持既有上限。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "r01-code",
+            "kind": "code_diff",
+            "change_id": "quota-policy-20261110-r01",
+            "service": "quota-policy-lab",
+            "environment": "training-preprod",
+            "timestamp": "2026-11-10T09:29:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": ["sandbox/quota/PolicyLookup.java"],
+              "summary": "新增路径以策略记录的 ruleId 查找配额定义，随后读取定义的 limit。",
+              "excerpt": "Rule rule = rulesById.get(policy.ruleId());\nreturn rule.limit();",
+              "schema_contract": "导入器目前接受空字符串 ruleId，查表无结果时返回 null。",
+              "release_note": "首次启用新增路径时需要导入本批候选策略。"
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "r01-ci",
+            "kind": "ci_checks",
+            "change_id": "quota-policy-20261110-r01",
+            "service": "quota-policy-lab",
+            "environment": "training-preprod",
+            "timestamp": "2026-11-10T09:34:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "failed",
+              "details": "训练流水线运行 quota-policy-contract-v4。常规策略查询、旧策略兼容均通过。空 ruleId 重放预期返回校验错误，实际在读取 limit 时抛出 NullPointerException。",
+              "failed_check": "policy_contract_blank_rule_id",
+              "candidate_record": {"tenant": "test-tenant-7", "ruleId": ""},
+              "source_type": "synthetic_teaching_ci"
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "r01-capacity",
+            "kind": "dependency_budget",
+            "change_id": "quota-policy-20261110-r01",
+            "service": "quota-policy-lab",
+            "environment": "training-preprod",
+            "timestamp": "2026-11-10T09:35:00+08:00",
+            "synthetic": true,
+            "content": {
+              "replicas": 3,
+              "pool_max": 12,
+              "db_max_connections": 200,
+              "current_connections": 95,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "requested_connections": 36,
+              "available_connections": 105,
+              "source_type": "synthetic_teaching_capacity"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

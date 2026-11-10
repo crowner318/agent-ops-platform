@@ -1,0 +1,573 @@
+{
+  "snapshot_id": "release-demo-2026-10-v1",
+  "changes": {
+    "risk-pool": {
+      "scope": {
+        "change_id": "risk-pool",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-2026-10-v1"
+      },
+      "as_of": "2026-10-30T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "risk-pool-release",
+            "kind": "release_snapshot",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 8,
+              "review_time": "2026-10-30T10:00:00+08:00"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "risk-pool-config",
+            "kind": "config_diff",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 5,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 5
+                }
+              ]
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "risk-pool-code",
+            "kind": "code_diff",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "Synthetic configuration-only release; no production deployment performed."
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "risk-pool-runbook",
+            "kind": "runbook",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+              "valid_from": "2026-01-01T00:00:00+08:00",
+              "valid_until": "2027-01-01T00:00:00+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "risk-pool-case",
+            "kind": "incident_case",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "risk-pool-ci",
+            "kind": "ci_checks",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "unit tests",
+                "configuration schema",
+                "integration tests"
+              ]
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "risk-pool-capacity",
+            "kind": "dependency_budget",
+            "change_id": "risk-pool",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 200,
+              "current_connections": 180,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 8,
+              "pool_max": 5,
+              "requested_connections": 40,
+              "available_connections": 20
+            }
+          }
+        ]
+      }
+    },
+    "safe": {
+      "scope": {
+        "change_id": "safe",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-2026-10-v1"
+      },
+      "as_of": "2026-10-30T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "safe-release",
+            "kind": "release_snapshot",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 4,
+              "review_time": "2026-10-30T10:00:00+08:00"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "safe-config",
+            "kind": "config_diff",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 50,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 50
+                }
+              ]
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "safe-code",
+            "kind": "code_diff",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "Synthetic configuration-only release; no production deployment performed."
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "safe-runbook",
+            "kind": "runbook",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+              "valid_from": "2026-01-01T00:00:00+08:00",
+              "valid_until": "2027-01-01T00:00:00+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "safe-case",
+            "kind": "incident_case",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "safe-ci",
+            "kind": "ci_checks",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "unit tests",
+                "configuration schema",
+                "integration tests"
+              ]
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "safe-capacity",
+            "kind": "dependency_budget",
+            "change_id": "safe",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 500,
+              "current_connections": 100,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 4,
+              "pool_max": 50,
+              "requested_connections": 200,
+              "available_connections": 400
+            }
+          }
+        ]
+      }
+    },
+    "missing": {
+      "scope": {
+        "change_id": "missing",
+        "service": "order-service",
+        "environment": "staging",
+        "snapshot_id": "release-demo-2026-10-v1"
+      },
+      "as_of": "2026-10-30T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "missing-release",
+            "kind": "release_snapshot",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 4,
+              "review_time": "2026-10-30T10:00:00+08:00"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "missing-config",
+            "kind": "config_diff",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 50,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 50
+                }
+              ]
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "missing-code",
+            "kind": "code_diff",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "Synthetic configuration-only release; no production deployment performed."
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "missing-runbook",
+            "kind": "runbook",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+              "valid_from": "2026-01-01T00:00:00+08:00",
+              "valid_until": "2027-01-01T00:00:00+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "missing-case",
+            "kind": "incident_case",
+            "change_id": "missing",
+            "service": "order-service",
+            "environment": "staging",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "legacy-demo": {
+      "scope": {
+        "change_id": "legacy-demo",
+        "service": "order-service",
+        "environment": "demo",
+        "snapshot_id": "release-demo-2026-10-v1"
+      },
+      "as_of": "2026-10-30T10:00:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "legacy-demo-release",
+            "kind": "release_snapshot",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v2.8.1",
+              "previous_version": "v2.8.0",
+              "status": "proposed",
+              "replicas": 8,
+              "review_time": "2026-10-30T10:00:00+08:00"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "legacy-demo-config",
+            "kind": "config_diff",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 50,
+              "pool_after": 5,
+              "changes": [
+                {
+                  "key": "DB_POOL_MAX",
+                  "before": 50,
+                  "after": 5
+                }
+              ]
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "legacy-demo-code",
+            "kind": "code_diff",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": [
+                "deploy/order-service/config.yaml"
+              ],
+              "summary": "Synthetic configuration-only release; no production deployment performed."
+            }
+          }
+        ],
+        "runbook": [
+          {
+            "id": "legacy-demo-runbook",
+            "kind": "runbook",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "title": "Connection pool capacity review",
+              "keywords": [
+                "pool",
+                "connections",
+                "capacity",
+                "timeout"
+              ],
+              "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+              "valid_from": "2026-01-01T00:00:00+08:00",
+              "valid_until": "2027-01-01T00:00:00+08:00"
+            }
+          }
+        ],
+        "incident_case": [
+          {
+            "id": "legacy-demo-case",
+            "kind": "incident_case",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "verified": true,
+              "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+              "original_change_id": "historical-synthetic-001",
+              "keywords": [
+                "pool",
+                "timeout",
+                "capacity"
+              ]
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "legacy-demo-ci",
+            "kind": "ci_checks",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "failed_tests": [],
+              "checks": [
+                "unit tests",
+                "configuration schema",
+                "integration tests"
+              ]
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "legacy-demo-capacity",
+            "kind": "dependency_budget",
+            "change_id": "legacy-demo",
+            "service": "order-service",
+            "environment": "demo",
+            "timestamp": "2026-10-30T09:55:00+08:00",
+            "synthetic": true,
+            "content": {
+              "db_max_connections": 200,
+              "current_connections": 180,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "replicas": 8,
+              "pool_max": 5,
+              "requested_connections": 40,
+              "available_connections": 20
+            }
+          }
+        ]
+      }
+    }
+  }
+}

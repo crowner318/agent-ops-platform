@@ -1,0 +1,227 @@
+{
+  "change_id": "missing",
+  "run_mode": "scripted_demo",
+  "scope": {
+    "change_id": "missing",
+    "service": "order-service",
+    "environment": "staging",
+    "snapshot_id": "release-demo-2026-10-v1"
+  },
+  "evidence": [
+    {
+      "id": "missing-release",
+      "kind": "release_snapshot",
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "version": "v2.8.1",
+        "previous_version": "v2.8.0",
+        "status": "proposed",
+        "replicas": 4,
+        "review_time": "2026-10-30T10:00:00+08:00"
+      }
+    },
+    {
+      "id": "missing-config",
+      "kind": "config_diff",
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "pool_before": 50,
+        "pool_after": 50,
+        "changes": [
+          {
+            "key": "DB_POOL_MAX",
+            "before": 50,
+            "after": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing-code",
+      "kind": "code_diff",
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "files": [
+          "deploy/order-service/config.yaml"
+        ],
+        "summary": "Synthetic configuration-only release; no production deployment performed."
+      }
+    },
+    {
+      "id": "missing-runbook",
+      "kind": "runbook",
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "title": "Connection pool capacity review",
+        "keywords": [
+          "pool",
+          "connections",
+          "capacity",
+          "timeout"
+        ],
+        "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+        "valid_from": "2026-01-01T00:00:00+08:00",
+        "valid_until": "2027-01-01T00:00:00+08:00"
+      }
+    },
+    {
+      "id": "missing-case",
+      "kind": "incident_case",
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "verified": true,
+        "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+        "original_change_id": "historical-synthetic-001",
+        "keywords": [
+          "pool",
+          "timeout",
+          "capacity"
+        ]
+      }
+    }
+  ],
+  "tool_records": [
+    {
+      "name": "get_release_snapshot",
+      "ok": true,
+      "duration_ms": 62.149,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_config_diff",
+      "ok": true,
+      "duration_ms": 62.107,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_code_diff",
+      "ok": true,
+      "duration_ms": 61.401,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_ci_checks",
+      "ok": true,
+      "duration_ms": 61.404,
+      "evidence_count": 0,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_dependency_budget",
+      "ok": true,
+      "duration_ms": 62.802,
+      "evidence_count": 0,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "search_runbooks",
+      "ok": true,
+      "duration_ms": 62.451,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "search_incident_cases",
+      "ok": true,
+      "duration_ms": 62.347,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    }
+  ],
+  "policy_findings": [
+    {
+      "code": "MISSING_CI_MATERIAL",
+      "severity": "warning",
+      "title": "缺少可用CI检查材料",
+      "detail": "尚未取得明确通过/失败的检查记录；缺材料不等于检查已失败。",
+      "evidence_ids": [],
+      "source": "policy"
+    },
+    {
+      "code": "MISSING_CAPACITY_MATERIAL",
+      "severity": "warning",
+      "title": "缺少可用容量材料",
+      "detail": "缺少目标总连接需求或数据库可用预算，不能认定容量足够，也不能认定已超额。",
+      "evidence_ids": [],
+      "source": "policy"
+    }
+  ],
+  "analysis": null,
+  "analysis_source": "scripted_demo",
+  "quality_issues": [
+    {
+      "code": "required_current_material_missing",
+      "path": "evidence",
+      "message": "缺少必需的当前发布、配置、代码、测试或依赖容量资料；不能声称评审完整。"
+    }
+  ],
+  "model_calls": [],
+  "decision": "incomplete",
+  "status": "incomplete",
+  "review_digest": "cbb17476a340f225c2ccf5698411b30f196177c165a6e1c2bfff850d998d3b76",
+  "review_record": {
+    "reviewer": "scripted-test-reviewer",
+    "decision": "acknowledge",
+    "comment": "自动化演示意见，非真实人工审核",
+    "proposed_digest": "cbb17476a340f225c2ccf5698411b30f196177c165a6e1c2bfff850d998d3b76",
+    "reviewed_at": "2026-10-30T07:47:59.428452+00:00",
+    "scope": {
+      "change_id": "missing",
+      "service": "order-service",
+      "environment": "staging",
+      "snapshot_id": "release-demo-2026-10-v1"
+    },
+    "outcome": "incomplete",
+    "production_approval": false,
+    "record_type": "release_risk_report_review"
+  },
+  "deployment_approved": false,
+  "execution": {
+    "last_command_elapsed_ms": 90.628,
+    "coordinator": {
+      "backend": "local",
+      "durability": "process_memory_only",
+      "cache_hits": 0,
+      "cache_misses": 0,
+      "cache_entries": 0,
+      "active_locks": 1,
+      "queue_total": 0,
+      "queue_pending": 0
+    }
+  },
+  "review_id": "verify-missing",
+  "metadata": {
+    "mode": "demo",
+    "coordination": "local"
+  }
+}

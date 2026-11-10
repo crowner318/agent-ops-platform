@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "default": "complete-demo",
+  "profiles": [
+    {
+      "id": "complete-demo",
+      "label": "完整演示资料",
+      "data_dir": "data/demo_complete",
+      "scope": {
+        "service": "order-service",
+        "environment": "demo",
+        "start": "2026-10-19T09:55:00+08:00",
+        "end": "2026-10-19T10:20:00+08:00"
+      },
+      "synthetic": true,
+      "description": "含负载与基线、连接归还、配置diff、DB会话、责任人和未执行回退计划；无外部平台。"
+    },
+    {
+      "id": "original-fault",
+      "label": "原始故障资料",
+      "data_dir": "data",
+      "scope": {
+        "service": "order-service",
+        "environment": "demo",
+        "start": "2026-10-19T09:55:00+08:00",
+        "end": "2026-10-19T10:20:00+08:00"
+      },
+      "synthetic": true,
+      "description": "保留原样，用于缺资料负例回归。"
+    },
+    {
+      "id": "healthy-staging",
+      "label": "稀疏预发布样本",
+      "data_dir": "data",
+      "scope": {
+        "service": "order-service",
+        "environment": "staging",
+        "start": "2026-10-19T09:55:00+08:00",
+        "end": "2026-10-19T10:20:00+08:00"
+      },
+      "synthetic": true,
+      "description": "只有少量无错误样本，不能认定整个系统健康或故障。"
+    }
+  ]
+}

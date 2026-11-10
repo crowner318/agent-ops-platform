@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "synthetic": true,
+    "scenario": "Synthetic order-service deployment followed by a too-small database connection pool and request timeouts. No real incident or customer data.",
+    "timezone": "Asia/Shanghai",
+    "expected_hypothesis": "Release v2.8.1 reduced DB_POOL_MAX from 50 to 5; pool waiters and acquisition timeouts increased while database CPU stayed moderate. Root cause still requires runtime validation."
+  },
+  "metrics": [
+    {"id":"m-order-001","service":"order-service","environment":"demo","timestamp":"2026-10-19T09:56:00+08:00","metric":"request_error_rate","value":0.002,"unit":"ratio","synthetic":true},
+    {"id":"m-order-002","service":"order-service","environment":"demo","timestamp":"2026-10-19T09:57:00+08:00","metric":"request_latency_p95","value":180,"unit":"ms","synthetic":true},
+    {"id":"m-order-003","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"request_error_rate","value":0.183,"unit":"ratio","synthetic":true},
+    {"id":"m-order-004","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"request_latency_p95","value":3150,"unit":"ms","synthetic":true},
+    {"id":"m-order-005","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"db_pool_active","value":5,"unit":"connections","synthetic":true},
+    {"id":"m-order-006","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"db_pool_max","value":5,"unit":"connections","synthetic":true},
+    {"id":"m-order-007","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"db_pool_waiters","value":86,"unit":"requests","synthetic":true},
+    {"id":"m-order-008","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:06:00+08:00","metric":"database_cpu","value":0.29,"unit":"ratio","synthetic":true},
+    {"id":"m-order-009","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:15:00+08:00","metric":"request_error_rate","value":0.171,"unit":"ratio","synthetic":true},
+    {"id":"m-order-010","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:15:00+08:00","metric":"db_pool_waiters","value":74,"unit":"requests","synthetic":true},
+    {"id":"m-order-before","service":"order-service","environment":"demo","timestamp":"2026-10-19T09:40:00+08:00","metric":"request_error_rate","value":0.001,"unit":"ratio","synthetic":true},
+    {"id":"m-order-staging","service":"order-service","environment":"staging","timestamp":"2026-10-19T10:05:00+08:00","metric":"request_error_rate","value":0.0,"unit":"ratio","synthetic":true},
+    {"id":"m-payment-001","service":"payment-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"request_error_rate","value":0.001,"unit":"ratio","synthetic":true},
+    {"id":"m-payment-002","service":"payment-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"request_latency_p95","value":140,"unit":"ms","synthetic":true},
+    {"id":"m-payment-003","service":"payment-service","environment":"demo","timestamp":"2026-10-19T10:05:00+08:00","metric":"db_pool_waiters","value":0,"unit":"requests","synthetic":true}
+  ],
+  "logs": [
+    {"id":"l-order-001","service":"order-service","environment":"demo","timestamp":"2026-10-19T09:58:00+08:00","level":"INFO","message":"Request completed normally; release=v2.8.0; DB_POOL_MAX=50.","synthetic":true},
+    {"id":"l-order-002","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:01:00+08:00","level":"INFO","message":"Started release=v2.8.1; DB_POOL_MAX=5; DB_ACQUIRE_TIMEOUT_MS=3000.","synthetic":true},
+    {"id":"l-order-003","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:04:12+08:00","level":"ERROR","message":"Database connection acquisition timeout after 3000ms; active=5; max=5; waiters=82; trace_id=trace-order-slow-01.","synthetic":true},
+    {"id":"l-order-004","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:08:23+08:00","level":"ERROR","message":"POST /orders returned HTTP 504; database connection acquisition timeout; trace_id=trace-order-slow-02.","synthetic":true},
+    {"id":"l-order-staging","service":"order-service","environment":"staging","timestamp":"2026-10-19T10:04:12+08:00","level":"INFO","message":"Staging smoke test passed.","synthetic":true},
+    {"id":"l-payment-001","service":"payment-service","environment":"demo","timestamp":"2026-10-19T10:04:12+08:00","level":"INFO","message":"Payment authorization completed in 118ms; no connection waiters.","synthetic":true}
+  ],
+  "traces": [
+    {"id":"t-order-001","service":"order-service","environment":"demo","timestamp":"2026-10-19T09:58:05+08:00","trace_id":"trace-order-normal-01","operation":"POST /orders","duration_ms":166,"status":"ok","spans":[{"name":"db.acquire","duration_ms":3},{"name":"db.insert","duration_ms":24},{"name":"payment.authorize","duration_ms":113}],"synthetic":true},
+    {"id":"t-order-002","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:04:12+08:00","trace_id":"trace-order-slow-01","operation":"POST /orders","duration_ms":3036,"status":"error","error":"connection_acquisition_timeout","spans":[{"name":"db.acquire","duration_ms":3001,"status":"error"}],"synthetic":true},
+    {"id":"t-order-003","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:08:23+08:00","trace_id":"trace-order-slow-02","operation":"POST /orders","duration_ms":3052,"status":"error","error":"connection_acquisition_timeout","spans":[{"name":"db.acquire","duration_ms":3002,"status":"error"}],"synthetic":true},
+    {"id":"t-payment-001","service":"payment-service","environment":"demo","timestamp":"2026-10-19T10:06:10+08:00","trace_id":"trace-payment-normal-01","operation":"POST /authorize","duration_ms":118,"status":"ok","spans":[{"name":"db.acquire","duration_ms":2},{"name":"bank.authorize","duration_ms":96}],"synthetic":true}
+  ],
+  "changes": [
+    {"id":"c-order-001","service":"order-service","environment":"demo","timestamp":"2026-10-19T10:00:00+08:00","change_type":"deployment","description":"Deploy v2.8.1 replacing v2.8.0; configuration template changed DB_POOL_MAX from 50 to 5.","change_id":"CHG-SYNTHETIC-1019","before":{"release":"v2.8.0","DB_POOL_MAX":50},"after":{"release":"v2.8.1","DB_POOL_MAX":5},"synthetic":true},
+    {"id":"c-order-old","service":"order-service","environment":"demo","timestamp":"2026-10-18T14:00:00+08:00","change_type":"deployment","description":"Earlier deployment outside incident scope.","synthetic":true},
+    {"id":"c-payment-001","service":"payment-service","environment":"demo","timestamp":"2026-10-19T09:59:00+08:00","change_type":"documentation","description":"Runbook ownership metadata updated; no runtime or configuration change.","runtime_change":false,"synthetic":true}
+  ],
+  "runbooks": [
+    {"id":"rb-order-pool-v3","service":"order-service","environment":"demo","timestamp":"2026-09-15T12:00:00+08:00","valid_from":"2026-09-15T00:00:00+08:00","valid_until":"2026-12-31T23:59:59+08:00","title":"Connection pool saturation after release / 发布后连接池耗尽","keywords":["database","pool","timeout","rollback","连接池","超时","回滚"],"content":"When acquisition latency and waiters rise, compare effective pool settings and recent configuration changes. Check total database connection headroom across all replicas before increasing pool size. Low database CPU alone does not prove database health. An approved operator must review rollback compatibility, canary scope and abort thresholds. This reference is not evidence that a current remediation succeeded.","synthetic":true},
+    {"id":"rb-order-generic-v1","service":"order-service","environment":"*","timestamp":"2026-08-01T12:00:00+08:00","valid_from":"2026-08-01T00:00:00+08:00","valid_until":"2027-01-01T00:00:00+08:00","title":"Request latency and timeout triage","keywords":["latency","timeout","trace","超时","链路"],"content":"Correlate metrics, logs, traces and deployments within the same incident window. Separate observed facts from candidate causes. Require a change ticket and human approval for production writes.","synthetic":true},
+    {"id":"rb-order-expired","service":"order-service","environment":"demo","timestamp":"2025-01-01T12:00:00+08:00","valid_from":"2025-01-01T00:00:00+08:00","valid_until":"2025-12-31T23:59:59+08:00","title":"Expired pool timeout procedure","keywords":["pool","timeout","连接池"],"content":"Expired reference; must not be returned for the October 2026 incident.","synthetic":true},
+    {"id":"rb-payment-v1","service":"payment-service","environment":"demo","timestamp":"2026-09-01T12:00:00+08:00","valid_from":"2026-09-01T00:00:00+08:00","valid_until":"2027-01-01T00:00:00+08:00","title":"Payment latency and connection pool investigation","keywords":["payment","latency","pool","timeout","支付"],"content":"Check payment traces and bank authorization latency. Investigate only observed failures; healthy samples do not imply full-service availability. Production changes require approval.","synthetic":true}
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-30",
+  "test_count": 75,
+  "passed": 74,
+  "skipped": 1,
+  "skip_reason": "stdio MCP subprocess pipe unavailable in current Windows sandbox",
+  "versions": {
+    "langchain": "1.4.0",
+    "langchain-core": "1.7.3",
+    "langchain-openai": "1.6.0",
+    "langgraph": "1.2.11",
+    "langgraph-checkpoint-sqlite": "3.1.2",
+    "fastmcp": "4.1.4",
+    "redis": "8.1.0",
+    "fakeredis": "2.40.0",
+    "pydantic": "2.14.2"
+  },
+  "tests_by_file": {
+    "test_analysis.py": 18,
+    "test_cli_recovery.py": 5,
+    "test_config_reporting.py": 6,
+    "test_coordination.py": 10,
+    "test_evidence.py": 7,
+    "test_langchain_wire.py": 1,
+    "test_legacy.py": 5,
+    "test_mcp_integration.py": 2,
+    "test_policy.py": 5,
+    "test_storage.py": 7,
+    "test_workflow.py": 9
+  },
+  "demo_runs": [
+    {
+      "change_id": "risk-pool",
+      "status_before": "waiting_human",
+      "status_after": "blocked",
+      "tool_calls": 7,
+      "evidence_count": 7,
+      "model_source": "scripted_demo",
+      "cli_wall_seconds": 8.425,
+      "quality_issues": [],
+      "api_requests": 0,
+      "redis_service_used": false
+    },
+    {
+      "change_id": "safe",
+      "status_before": "waiting_human",
+      "status_after": "review_acknowledged",
+      "tool_calls": 7,
+      "evidence_count": 7,
+      "model_source": "scripted_demo",
+      "cli_wall_seconds": 8.66,
+      "quality_issues": [],
+      "api_requests": 0,
+      "redis_service_used": false
+    },
+    {
+      "change_id": "missing",
+      "status_before": "waiting_human",
+      "status_after": "incomplete",
+      "tool_calls": 7,
+      "evidence_count": 5,
+      "model_source": "scripted_demo",
+      "cli_wall_seconds": 8.961,
+      "quality_issues": [
+        {
+          "code": "required_current_material_missing",
+          "path": "evidence",
+          "message": "缺少必需的当前发布、配置、代码、测试或依赖容量资料；不能声称评审完整。"
+        }
+      ],
+      "api_requests": 0,
+      "redis_service_used": false
+    },
+    {
+      "change_id": "legacy-demo",
+      "status_after": "waiting_human",
+      "legacy_import_verified": true,
+      "note": "confirmation is a synthetic test fixture, not real human approval"
+    }
+  ],
+  "real_qwen_api_tested": true,
+  "valid_online_analysis_verified": false,
+  "real_qwen_online_runs": [
+    {
+      "review_id": "qwen-safe-lh-001",
+      "real_qwen_return_received": true,
+      "mcp_tools_succeeded": 7,
+      "recorded_call_seconds": 14.441659,
+      "usage": {
+        "prompt_tokens": 1625,
+        "completion_tokens": 542,
+        "total_tokens": 2167
+      },
+      "quality_issues": [
+        {
+          "code": "historical_only_risk",
+          "path": "analysis.risks[1]"
+        }
+      ],
+      "accepted_analysis": false,
+      "analysis": null,
+      "status": "waiting_human",
+      "synthetic_business_material": true,
+      "bounded_regeneration_online_verified": false
+    }
+  ],
+  "real_redis_service_tested": false,
+  "actual_mcp_inprocess_tested": true,
+  "actual_langchain_wire_mock_http_tested": true,
+  "actual_langgraph_checkpoint_new_process_tested": true
+}

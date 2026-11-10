@@ -1,0 +1,324 @@
+{
+  "description": "Sanitized assistant responses from synthetic Qwen incident runs; untrusted test data only.",
+  "scope": {
+    "service": "order-service",
+    "environment": "demo",
+    "start": "2026-10-19T09:55:00+08:00",
+    "end": "2026-10-19T10:20:00+08:00"
+  },
+  "evidence": [
+    {
+      "id": "c-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:00:00+08:00",
+      "change_type": "deployment",
+      "description": "Deploy v2.8.1 replacing v2.8.0; configuration template changed DB_POOL_MAX from 50 to 5.",
+      "change_id": "CHG-SYNTHETIC-1019",
+      "before": {
+        "release": "v2.8.0",
+        "DB_POOL_MAX": 50
+      },
+      "after": {
+        "release": "v2.8.1",
+        "DB_POOL_MAX": 5
+      },
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "l-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:58:00+08:00",
+      "level": "INFO",
+      "message": "Request completed normally; release=v2.8.0; DB_POOL_MAX=50.",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "l-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:01:00+08:00",
+      "level": "INFO",
+      "message": "Started release=v2.8.1; DB_POOL_MAX=5; DB_ACQUIRE_TIMEOUT_MS=3000.",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "l-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:04:12+08:00",
+      "level": "ERROR",
+      "message": "Database connection acquisition timeout after 3000ms; active=5; max=5; waiters=82; trace_id=trace-order-slow-01.",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "l-order-004",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:08:23+08:00",
+      "level": "ERROR",
+      "message": "POST /orders returned HTTP 504; database connection acquisition timeout; trace_id=trace-order-slow-02.",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:56:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.002,
+      "unit": "ratio",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:57:00+08:00",
+      "metric": "request_latency_p95",
+      "value": 180,
+      "unit": "ms",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.183,
+      "unit": "ratio",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-004",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "request_latency_p95",
+      "value": 3150,
+      "unit": "ms",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-005",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_active",
+      "value": 5,
+      "unit": "connections",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-006",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_max",
+      "value": 5,
+      "unit": "connections",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-007",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:05:00+08:00",
+      "metric": "db_pool_waiters",
+      "value": 86,
+      "unit": "requests",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-008",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:06:00+08:00",
+      "metric": "database_cpu",
+      "value": 0.29,
+      "unit": "ratio",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-009",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:15:00+08:00",
+      "metric": "request_error_rate",
+      "value": 0.171,
+      "unit": "ratio",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "m-order-010",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:15:00+08:00",
+      "metric": "db_pool_waiters",
+      "value": 74,
+      "unit": "requests",
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "rb-order-generic-v1",
+      "service": "order-service",
+      "environment": "*",
+      "timestamp": "2026-08-01T12:00:00+08:00",
+      "valid_from": "2026-08-01T00:00:00+08:00",
+      "valid_until": "2027-01-01T00:00:00+08:00",
+      "title": "Request latency and timeout triage",
+      "keywords": [
+        "latency",
+        "timeout",
+        "trace",
+        "超时",
+        "链路"
+      ],
+      "content": "Correlate metrics, logs, traces and deployments within the same incident window. Separate observed facts from candidate causes. Require a change ticket and human approval for production writes.",
+      "synthetic": true,
+      "evidence_type": "historical_knowledge",
+      "current_telemetry": false
+    },
+    {
+      "id": "rb-order-pool-v3",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-09-15T12:00:00+08:00",
+      "valid_from": "2026-09-15T00:00:00+08:00",
+      "valid_until": "2026-12-31T23:59:59+08:00",
+      "title": "Connection pool saturation after release / 发布后连接池耗尽",
+      "keywords": [
+        "database",
+        "pool",
+        "timeout",
+        "rollback",
+        "连接池",
+        "超时",
+        "回滚"
+      ],
+      "content": "When acquisition latency and waiters rise, compare effective pool settings and recent configuration changes. Check total database connection headroom across all replicas before increasing pool size. Low database CPU alone does not prove database health. An approved operator must review rollback compatibility, canary scope and abort thresholds. This reference is not evidence that a current remediation succeeded.",
+      "synthetic": true,
+      "evidence_type": "historical_knowledge",
+      "current_telemetry": false
+    },
+    {
+      "id": "t-order-001",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T09:58:05+08:00",
+      "trace_id": "trace-order-normal-01",
+      "operation": "POST /orders",
+      "duration_ms": 166,
+      "status": "ok",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3
+        },
+        {
+          "name": "db.insert",
+          "duration_ms": 24
+        },
+        {
+          "name": "payment.authorize",
+          "duration_ms": 113
+        }
+      ],
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "t-order-002",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:04:12+08:00",
+      "trace_id": "trace-order-slow-01",
+      "operation": "POST /orders",
+      "duration_ms": 3036,
+      "status": "error",
+      "error": "connection_acquisition_timeout",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3001,
+          "status": "error"
+        }
+      ],
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    },
+    {
+      "id": "t-order-003",
+      "service": "order-service",
+      "environment": "demo",
+      "timestamp": "2026-10-19T10:08:23+08:00",
+      "trace_id": "trace-order-slow-02",
+      "operation": "POST /orders",
+      "duration_ms": 3052,
+      "status": "error",
+      "error": "connection_acquisition_timeout",
+      "spans": [
+        {
+          "name": "db.acquire",
+          "duration_ms": 3002,
+          "status": "error"
+        }
+      ],
+      "synthetic": true,
+      "evidence_type": "current_telemetry",
+      "current_telemetry": true
+    }
+  ],
+  "responses": {
+    "single_diagnosis": {
+      "content": "[{\"id\": \"call_1\", \"name\": \"collect_evidence\", \"args\": {\"kinds\": [\"runbooks\"], \"query\": \"DB_POOL_MAX connection pool timeout rollback\"}}]",
+      "tool_calls": null
+    },
+    "swarm_diagnosis": {
+      "content": "已完成证据关联、处置评估与复盘草稿生成。以下为结构化诊断结论：\n\n{\"hypotheses\":[{\"text\":\"候选机制A（配置变更导致连接池饱和）：v2.8.1 部署将 DB_POOL_MAX 由 50 降至 5，运行时确认 max=5；db_pool_active 持续等于 max(5)、waiters 达 74–86，链路 db.acquire span 约 3000ms 后 connection_acquisition_timeout 并返回 HTTP 504，同期错误率点采样升至 0.183/0.171、p95 升至约 3150ms。时间相关不等于因果，需验证。\",\"evidence_ids\":[\"c-order-001\",\"l-order-002\",\"m-order-005\",\"m-order-006\",\"m-order-007\",\"m-order-010\",\"t-order-002\",\"t-order-003\",\"l-order-003\",\"l-order-004\",\"m-order-003\",\"m-order-004\",\"m-order-009\"],\"validation\":[\"核对 v2.8.1 生效的运行时配置是否确为 DB_POOL_MAX=5、DB_ACQUIRE_TIMEOUT_MS=3000，排除模板未生效或另有覆盖。\",\"在受控环境将 DB_POOL_MAX 恢复至 50 观察 waiters 与获取延迟是否回落（须独立授权，非自动执行）。\"]},{\"text\":\"候选机制B（并发/持有放大缩小的池）：缩池至 5 是否足以造成当前排队，取决于请求并发量与单请求连接持有时长；现有采样点未见渐进增长趋势但不能据此排除连接未及时归还等叠加因素。database_cpu 观测为 0.29，单点不足以排除锁等待、I/O 或慢查询。\",\"evidence_ids\":[\"m-order-007\",\"m-order-010\",\"m-order-005\",\"m-order-008\",\"t-order-002\"],\"validation\":[\"采集并发请求数、每请求连接持有时长与总连接需求，评估池上限 5 相对负载是否过小。\",\"补充数据库侧锁等待、慢查询、连接上限与 I/O 指标，判断瓶颈在服务端还是应用侧池配置。\"]}],\"recommendations\":[{\"text\":\"待评审处置（未批准、未执行）：回滚 order-service 至 v2.8.0（恢复 DB_POOL_MAX=50），或以热修配置将 DB_POOL_MAX 调回原值以缓解获取超时。assess_remediation 判定为高风险 rollback，需人工审批、变更单与责任人，前置校验 schema/依赖兼容性与已知良好版本，并设定金丝雀范围与可度量中止阈值。\",\"evidence_ids\":[\"c-order-001\",\"l-order-002\",\"l-order-003\",\"m-order-003\",\"m-order-005\",\"m-order-006\",\"m-order-007\",\"t-order-002\",\"rb-order-pool-v3\"]},{\"text\":\"扩容前须先核查所有副本对数据库的总连接余量（headroom），避免单纯放大池上限将压力转移至数据库；同时结合并发与连接持有时长确定目标值——此为待评审方向，非既定阈值。\",\"evidence_ids\":[\"rb-order-pool-v3\",\"m-order-006\",\"m-order-008\"]},{\"text\":\"复盘草稿已生成（status=draft_requires_review）：root_cause 标记为 hypothesis_requires_validation、recovery_verified=false、影响未按定义观测群体量化；需指派事件负责人验证时间线与根因，并复核配置防护措施、监控与变更检查项。\",\"evidence_ids\":[\"c-order-001\",\"l-order-002\",\"l-order-003\",\"m-order-003\",\"m-order-005\",\"m-order-006\",\"m-order-007\",\"t-order-002\",\"rb-order-generic-v1\"]}],\"missing_evidence\":[\"缺少连续时序数据：现有指标多为离散采样点，无法证明故障持续到窗口终点或确认最后遥测时间与恢复状态。\",\"缺少并发量与单请求连接持有时长数据，无法判定缩池至 5 是否足以饱和。\",\"缺少数据库侧锁等待、慢查询、连接上限与 I/O 指标，单点 database_cpu=0.29 不足以排除服务端瓶颈。\",\"缺少 v2.8.1 实际生效配置的独立确认（除启动日志外），以排除配置模板未生效或被覆盖。\",\"缺少按定义观测群体计算的总体可用性/失败比例与用户影响量化。\"],\"process_checks\":[\"待核查：本次 DB_POOL_MAX 由 50 骤降至 5 的配置变更是否经过容量评估与变更审批流程。\",\"待核查：连接池饱和/waiters 升高是否已有对应告警规则触发，抑或存在告警缺失。\",\"待核查：发布金丝雀/灰度阶段是否具备基于错误率与获取超时的自动中止阈值。\",\"待核查：回滚兼容性（schema/依赖服务）与已知良好版本的验证记录是否齐备。\"]}",
+      "tool_calls": null
+    },
+    "swarm_triage": {
+      "content": "{\"hypotheses\": [{\"text\": \"候选根因一：发布 v2.8.1 的配置模板将 DB_POOL_MAX 从 50 降至 5，导致连接池饱和。当前遥测显示 db_pool_active=5 恒等于 db_pool_max=5（m-order-005/m-order-006），db_pool_waiters 达 86/74（m-order-007/m-order-010），l-order-003 记录 active=5;max=5;waiters=82 的获取超时，t-order-002/t-order-003 的 db.acquire span 耗时约 3001/3002ms 恰等于 l-order-002 声明的 DB_ACQUIRE_TIMEOUT_MS=3000。时间上紧随 c-order-001 部署与 l-order-002 启动日志，但时间相关不等于因果，且缩池是否足以饱和仍需并发量、单请求连接持有时长与容量基线证据。\", \"evidence_ids\": [\"c-order-001\", \"l-order-002\", \"m-order-005\", \"m-order-006\", \"m-order-007\", \"m-order-010\", \"l-order-003\", \"t-order-002\", \"t-order-003\"], \"validation\": [\"取 v2.8.0 与 v2.8.1 期间的 QPS/并发请求数与 db_pool_waiters 对比，确认 5 连接相对负载是否不足。\", \"测量单请求在事务中持有连接的平均与 P95 时长，判断是否存在长事务放大池占用。\", \"核对 v2.8.1 代码差异中除 DB_POOL_MAX 外是否同时引入慢查询或事务边界变更。\"]}, {\"text\": \"候选根因二：错误与延迟由数据库侧瓶颈（锁等待、I/O 或慢查询）引起而非池上限。database_cpu=0.29（m-order-008）为单点采样，不足以排除锁等待、I/O 压力或慢查询；正常链路 t-order-001 的 db.insert 仅 24ms，缺少异常链路中 db.query/db.insert 的耗时分解，无法区分等待发生在 acquire 队列还是语句执行阶段。\", \"evidence_ids\": [\"m-order-008\", \"t-order-001\", \"t-order-002\", \"t-order-003\", \"l-order-004\"], \"validation\": [\"拉取数据库侧锁等待、慢查询日志与 I/O 等待指标覆盖 09:55–10:20 窗口。\", \"补齐异常 trace 的完整 span 树，确认除 db.acquire 外的语句执行耗时占比。\", \"对比 v2.8.0 时段 database_cpu 与 waiters 基线，判断该单点值是否属正常区间。\"]}, {\"text\": \"候选根因三：下游 payment.authorize 或其他依赖变慢延长连接持有时间，间接造成池饥饿。t-order-001 显示 payment.authorize 占 113ms（总 166ms），若该依赖在发布后延迟上升且调用位于事务内，会拉长连接占用并推高 waiters；当前无 v2.8.1 期间下游延迟数据，仅为待验证方向。\", \"evidence_ids\": [\"t-order-001\", \"m-order-004\", \"t-order-002\"], \"validation\": [\"查询 payment 服务在事件窗口的延迟与错误率，并与 09:55–09:58 基线对比。\", \"确认代码中 payment.authorize 调用是否处于持有数据库连接的事务范围内。\"]}, {\"text\": \"观测到的异常时点分布（供研判，非结论）：09:56–09:58 基线正常（error_rate 0.002、p95 180ms、trace ok）；10:01 起 v2.8.1 生效；10:04:12 出现首个 acquire 超时；10:05 采样 error_rate 0.183、p95 3150ms、waiters 86；10:08:23 HTTP 504；10:15 采样 error_rate 0.171、waiters 74。离散采样不能证明连续覆盖，10:05 至 10:15 之间及 10:15 之后到窗口终点 10:20 的实际状态未知，不得据此宣称故障持续时长或已恢复。\", \"evidence_ids\": [\"m-order-001\", \"m-order-002\", \"t-order-001\", \"l-order-002\", \"l-order-003\", \"m-order-003\", \"m-order-004\", \"m-order-007\", \"l-order-004\", \"m-order-009\", \"m-order-010\"], \"validation\": [\"以更高粒度重采样 10:05–10:20 的 error_rate、p95 与 waiters，确认演变趋势与最后遥测时间。\", \"确认 10:15 采样点之后是否仍有新的 acquire 超时日志产生。\"]}], \"recommendations\": [{\"text\": \"待评审建议一（取证优先）：先补齐能区分池上限与数据库瓶颈的证据——并发/QPS、连接持有时长、数据库锁与慢查询指标、异常 trace 完整 span 树，再决定配置动作方向。本分诊阶段仅做只读查询，不执行任何变更。\", \"evidence_ids\": [\"m-order-007\", \"m-order-010\", \"m-order-008\", \"t-order-002\", \"t-order-003\", \"l-order-003\"]}, {\"text\": \"待评审建议二（缓解方向，未批准未执行）：若后续人工核查确认瓶颈为池上限而非数据库侧容量问题，可评估将 order-service demo 环境的 DB_POOL_MAX 回退至变更前值 50 或按容量核算取值，并同步复核 DB_ACQUIRE_TIMEOUT_MS=3000 与上游 504 超时的匹配关系。回滚或改配置须走独立授权的运维流程，阈值与观察时长均需评审。\", \"evidence_ids\": [\"c-order-001\", \"l-order-002\", \"m-order-005\", \"m-order-006\", \"l-order-004\"]}, {\"text\": \"待评审建议三（变更治理）：本次变更同时替换版本与大幅下调连接池上限（50→5），建议评审将配置类改动与代码发布解耦、并在发布前提供容量影响评估与灰度验证；相关核查项列入 process_checks，不作为已确认的组织根因。\", \"evidence_ids\": [\"c-order-001\", \"l-order-001\", \"l-order-002\"]}, {\"text\": \"待评审建议四（复盘草稿要点）：复盘应基于已采集证据描述时间线与观测事实，明确标注 synthetic=true 的模拟数据来源，避免把时间相关性写成因果结论；对未采证的可用性、总体失败比例与用户影响不做推算，仅列出待补充数据项。\", \"evidence_ids\": [\"m-order-001\", \"m-order-003\", \"m-order-009\", \"l-order-004\", \"c-order-001\"]}], \"missing_evidence\": [\"order-service 在 09:55–10:20 的请求速率/QPS 与并发数，用于判断 5 连接是否相对负载不足。\", \"单请求数据库连接持有时长（事务开始至提交）分布，用于识别长事务或事务边界变化。\", \"数据库侧锁等待、慢查询、I/O 等待与连接数上限指标，单点 CPU=0.29 不足以覆盖。\", \"异常 trace（trace-order-slow-01/02）除 db.acquire 外的完整 span 与语句级耗时。\", \"payment.authorize 等下游依赖在事件窗口的延迟与错误率基线对比。\", \"10:05 与 10:15 采样点之间及 10:15 之后的细粒度 error_rate/p95/waiters 序列，以及各指标的最后遥测时间。\", \"v2.8.1 相对 v2.8.0 的代码差异清单，确认是否含 SQL、ORM 或事务改动。\", \"demo 环境连接池容量的历史基线与既有容量评估文档。\", \"本次告警的触发规则与通知记录，用于核查告警是否及时命中（不作缺失断言）。\", \"回滚/改配置的审批与执行记录（如已有），用于核查变更管控流程状态。\"], \"process_checks\": [\"核查 c-order-001（CHG-SYNTHETIC-1019）是否包含 DB_POOL_MAX 50→5 的影响评估与审批材料，以及是否经过灰度。\", \"核查配置模板变更为何与版本发布耦合在同一变更中，评审变更拆分策略。\", \"核查 order-service 是否存在连接池饱和度（active/max、waiters）与获取超时的告警规则及其触发情况。\", \"核查 DB_ACQUIRE_TIMEOUT_MS=3000 与网关/客户端 504 超时设置的一致性。\", \"核查本次数据的 synthetic 标记与来源范围，确认复盘所用证据均为 demo 环境 09:55–10:20 窗口内的实际返回 ID。\", \"核查发布后错误率升高是否有对应的 SLO/错误预算记录可用于事后评审。\"]}",
+      "tool_calls": null
+    },
+    "swarm_remediation": {
+      "content": "{\"hypotheses\": [{\"text\": \"候选根因1：v2.8.1 发布将 DB_POOL_MAX 由 50 降至 5（配置模板变更），连接池上限被占满（active=max=5）且等待者持续存在（waiters 74-86），请求在 db.acquire 阶段约 3000ms 后获取超时，导致 POST /orders 返回 504 与错误率、p95 延迟同步上升。时间相关不等于因果，需人工验证。\", \"evidence_ids\": [\"c-order-001\", \"l-order-002\", \"m-order-005\", \"m-order-006\", \"m-order-007\", \"m-order-010\", \"t-order-002\", \"t-order-003\", \"l-order-003\", \"l-order-004\", \"m-order-003\", \"m-order-004\"], \"validation\": [\"核对 v2.8.1 运行时生效配置与 c-order-001 声明的 DB_POOL_MAX=5 是否一致，确认无其他实例仍为 50。\", \"统计窗口内 connection_acquisition_timeout 错误的请求数与总请求数，确认错误构成而非仅采样点。\", \"对比同窗口正常链路 t-order-001 与慢链路的 db.acquire 耗时分布，确认瓶颈集中在连接获取而非下游 span。\"]}, {\"text\": \"候选根因2：连接持有时长异常或连接泄漏使池长期满载（active 恒为 5），即使并发不高也无法释放；缩池只是放大了持有问题。当前仅有 active/max/waiters 快照，无法区分“容量不足”与“持有过长/未归还”。\", \"evidence_ids\": [\"m-order-005\", \"m-order-006\", \"m-order-007\", \"l-order-003\", \"t-order-002\"], \"validation\": [\"采集连接平均/最大持有时长与归还速率，验证是否存在未归还或长时间占用。\", \"结合请求并发量与 QPS 评估 max=5 是否足以饱和，避免仅凭有限样本推断。\", \"检查代码/ORM 层事务边界与连接关闭路径在 v2.8.1 中的改动。\"]}, {\"text\": \"候选根因3：数据库侧锁等待、慢查询或连接上限等造成响应变慢并间接耗尽应用连接。database_cpu 单点 0.29 不足以排除此类问题，需补充数据库侧指标。\", \"evidence_ids\": [\"m-order-008\", \"t-order-003\", \"l-order-004\"], \"validation\": [\"拉取数据库慢查询日志、锁等待/阻塞会话与数据库连接数上限使用情况。\", \"对比 db.insert 等下游 span 耗时在故障窗口的变化，判断慢点是否在数据库执行侧。\"]}, {\"text\": \"候选根因4：DB_ACQUIRE_TIMEOUT_MS=3000 与客户端/网关超时的相对关系可能放大失败面（获取超时即直接 504），属配置组合效应而非唯一诱因，需与其他候选共同评估。\", \"evidence_ids\": [\"l-order-002\", \"t-order-002\", \"l-order-004\"], \"validation\": [\"核对上游调用方/负载均衡超时阈值与重试策略，确认是否存在重试风暴加剧等待队列。\", \"验证调整获取超时或引入排队/熔断后的行为差异（仅在受控环境）。\"]}], \"recommendations\": [{\"text\": \"待评审处置A（回滚）：经独立授权后回滚 order-service 至 v2.8.0（恢复 DB_POOL_MAX=50）。前置条件：确认已知良好版本与配置差异、校验 schema/依赖兼容性、保存当前版本并定义回滚中止阈值。本建议仅为提案，未批准、未执行。\", \"evidence_ids\": [\"c-order-001\", \"l-order-001\", \"l-order-002\", \"m-order-005\", \"m-order-006\", \"m-order-007\", \"t-order-002\"]}, {\"text\": \"待评审处置B（临时调参）：若回滚不具兼容性条件，可在审批后将 DB_POOL_MAX 适度上调并观察错误率与 waiters。上调前必须先核查所有副本对数据库的总连接余量与数据库连接上限，避免把压力转移到数据库侧。\", \"evidence_ids\": [\"m-order-006\", \"m-order-007\", \"m-order-010\", \"m-order-008\"]}, {\"text\": \"待评审防护：在发布流水线加入配置项变更守护（DB_POOL_MAX、DB_ACQUIRE_TIMEOUT_MS 等关键参数变更需显式审批与灰度校验），并对连接池饱和度（active/max 比、waiters）设置可观测告警与金丝雀中止阈值。\", \"evidence_ids\": [\"c-order-001\", \"m-order-005\", \"m-order-006\", \"m-order-007\"]}, {\"text\": \"复盘草稿已生成（draft_requires_review）：时间线覆盖 09:56 基线正常至 10:15 仍有 waiters/错误率样本；根因状态为 hypothesis_requires_validation，影响面未按定义观测群体量化，恢复未验证。需指派事件负责人复核时间线与机制后再定稿。\", \"evidence_ids\": [\"m-order-001\", \"m-order-002\", \"t-order-001\", \"c-order-001\", \"l-order-003\", \"m-order-009\", \"m-order-010\"]}], \"missing_evidence\": [\"缺少窗口内完整错误计数与请求总量（当前 error_rate/p95 为离散采样点，不能推算总体可用性、总体失败比例或用户影响范围）。\", \"缺少最后遥测时间确认：10:15 之后到窗口终点 10:20 是否有数据、故障是否仍在持续未知，不能假定持续到窗口结束。\", \"缺少连接持有时长、归还速率与每副本连接使用明细，无法判定是纯容量不足还是持有过长/泄漏。\", \"缺少并发/QPS 与请求到达速率数据，无法评估 max=5 相对实际负载的饱和程度。\", \"缺少数据库侧证据：慢查询、锁等待/阻塞会话、数据库连接上限使用、I/O 与等待事件（单点 CPU 0.29 不足以排除）。\", \"缺少 v2.8.1 除 DB_POOL_MAX 外的完整代码/配置变更清单，可能存在其他并行诱因未被隔离。\", \"缺少多副本视角：不确定 DB_POOL_MAX=5 是否在所有实例生效，以及各实例对数据库总连接贡献。\", \"缺少回滚兼容性材料（schema 迁移、接口契约、依赖服务版本）与已批准的变更工单/责任人记录。\", \"缺少上游调用方超时与重试配置，无法判断重试是否放大 waiters 队列。\", \"缺少 v2.8.0 时期同口径的连接池指标基线（active/waiters），难以做前后对照定量。\"], \"process_checks\": [\"待核查：本次配置模板变更（DB_POOL_MAX 50→5）是否经过变更评审与容量评估？需查阅 CHG-SYNTHETIC-1019 审批记录，缺失材料不等于流程不存在。\", \"待核查：连接池饱和度与获取超时是否已有告警规则并触发？需确认告警配置与通知链路，而非据此断言告警缺失。\", \"待核查：发布是否采用金丝雀/分批策略及中止阈值？需核实发布流程定义与实际执行范围。\", \"待核查：运行时配置生效值是否有可审计来源（配置中心/启动日志一致性校验），以避免模板与生效值偏差。\", \"待核查：回滚预案与责任人是否就位？需确认独立授权的运维流程可执行性与兼容性验证步骤。\"]}",
+      "tool_calls": null
+    }
+  }
+}

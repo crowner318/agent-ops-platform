@@ -1,0 +1,120 @@
+{
+  "snapshot_id": "public-lab-release-r02-20261110",
+  "changes": {
+    "receipt-template-20261110-r02": {
+      "scope": {
+        "change_id": "receipt-template-20261110-r02",
+        "service": "receipt-template-lab",
+        "environment": "training-canary",
+        "snapshot_id": "public-lab-release-r02-20261110"
+      },
+      "as_of": "2026-11-10T10:25:00+08:00",
+      "evidence": {
+        "release_snapshot": [
+          {
+            "id": "r02-release",
+            "kind": "release_snapshot",
+            "change_id": "receipt-template-20261110-r02",
+            "service": "receipt-template-lab",
+            "environment": "training-canary",
+            "timestamp": "2026-11-10T10:10:00+08:00",
+            "synthetic": true,
+            "content": {
+              "version": "v1.3.1-lab",
+              "previous_version": "v1.3.0-lab",
+              "status": "proposed",
+              "replicas": 4,
+              "release_purpose": "向收据模板增加可选的店铺展示名。",
+              "change_summary": "先在一个训练副本上启用模板开关，观察 15 分钟后由演练角色决定是否扩展。",
+              "owner": {"name": "收据模板演练角色", "team": "训练沙箱", "identity_verified": false},
+              "rollback_plan": {
+                "status": "planned_not_executed",
+                "target_version": "v1.3.0-lab",
+                "steps": ["关闭收据展示名开关，恢复原模板路径。", "如原模板回归异常，训练副本切回 v1.3.0-lab 并检查模板缓存。"]
+              },
+              "validation_plan": {
+                "status": "planned_not_executed",
+                "controlled_check": ["比较新旧模板的合成收据样本。", "观察模板渲染错误率和响应延时，检查收据金额与税额字段一致。"]
+              },
+              "material_notice": "独立训练沙箱的合成发布材料。服务、配置、代码、检查与容量记录均为模拟数据。"
+            }
+          }
+        ],
+        "config_diff": [
+          {
+            "id": "r02-config",
+            "kind": "config_diff",
+            "change_id": "receipt-template-20261110-r02",
+            "service": "receipt-template-lab",
+            "environment": "training-canary",
+            "timestamp": "2026-11-10T10:13:00+08:00",
+            "synthetic": true,
+            "content": {
+              "pool_before": 15,
+              "pool_after": 15,
+              "changes": [
+                {"key": "receipt_display_name_enabled", "before": false, "after": true},
+                {"key": "receipt_canary_replicas", "before": 0, "after": 1}
+              ],
+              "configuration_unchanged_reason": "模板开关和训练副本范围变化，数据库连接池继续沿用当前设置。"
+            }
+          }
+        ],
+        "code_diff": [
+          {
+            "id": "r02-code",
+            "kind": "code_diff",
+            "change_id": "receipt-template-20261110-r02",
+            "service": "receipt-template-lab",
+            "environment": "training-canary",
+            "timestamp": "2026-11-10T10:14:00+08:00",
+            "synthetic": true,
+            "content": {
+              "files": ["sandbox/receipts/render.py", "sandbox/tests/test_receipts.py"],
+              "summary": "可选展示名缺失或为空时回退到已有店铺名称，金额和税额沿用旧模板计算。",
+              "excerpt": "label = (receipt.display_name or '').strip() or receipt.store_name\nreturn render_header(escape(label))",
+              "schema_change": "none"
+            }
+          }
+        ],
+        "ci_checks": [
+          {
+            "id": "r02-ci",
+            "kind": "ci_checks",
+            "change_id": "receipt-template-20261110-r02",
+            "service": "receipt-template-lab",
+            "environment": "training-canary",
+            "timestamp": "2026-11-10T10:19:00+08:00",
+            "synthetic": true,
+            "content": {
+              "status": "passed",
+              "details": "训练流水线通过了旧模板兼容、空展示名回退、显示名转义、金额税额一致性和开关关闭五个用例。",
+              "source_type": "synthetic_teaching_ci"
+            }
+          }
+        ],
+        "dependency_budget": [
+          {
+            "id": "r02-capacity",
+            "kind": "dependency_budget",
+            "change_id": "receipt-template-20261110-r02",
+            "service": "receipt-template-lab",
+            "environment": "training-canary",
+            "timestamp": "2026-11-10T10:20:00+08:00",
+            "synthetic": true,
+            "content": {
+              "replicas": 4,
+              "pool_max": 15,
+              "db_max_connections": 200,
+              "current_connections": 85,
+              "current_connections_scope": "other consumers only; excludes the target release replicas",
+              "requested_connections": 60,
+              "available_connections": 115,
+              "source_type": "synthetic_teaching_capacity"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

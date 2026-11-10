@@ -1,0 +1,272 @@
+{
+  "change_id": "safe",
+  "run_mode": "scripted_demo",
+  "scope": {
+    "change_id": "safe",
+    "service": "order-service",
+    "environment": "staging",
+    "snapshot_id": "release-demo-2026-10-v1"
+  },
+  "evidence": [
+    {
+      "id": "safe-release",
+      "kind": "release_snapshot",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "version": "v2.8.1",
+        "previous_version": "v2.8.0",
+        "status": "proposed",
+        "replicas": 4,
+        "review_time": "2026-10-30T10:00:00+08:00"
+      }
+    },
+    {
+      "id": "safe-config",
+      "kind": "config_diff",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "pool_before": 50,
+        "pool_after": 50,
+        "changes": [
+          {
+            "key": "DB_POOL_MAX",
+            "before": 50,
+            "after": 50
+          }
+        ]
+      }
+    },
+    {
+      "id": "safe-code",
+      "kind": "code_diff",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "files": [
+          "deploy/order-service/config.yaml"
+        ],
+        "summary": "Synthetic configuration-only release; no production deployment performed."
+      }
+    },
+    {
+      "id": "safe-ci",
+      "kind": "ci_checks",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "status": "passed",
+        "failed_tests": [],
+        "checks": [
+          "unit tests",
+          "configuration schema",
+          "integration tests"
+        ]
+      }
+    },
+    {
+      "id": "safe-capacity",
+      "kind": "dependency_budget",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "db_max_connections": 500,
+        "current_connections": 100,
+        "current_connections_scope": "other consumers only; excludes the target release replicas",
+        "replicas": 4,
+        "pool_max": 50,
+        "requested_connections": 200,
+        "available_connections": 400
+      }
+    },
+    {
+      "id": "safe-runbook",
+      "kind": "runbook",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "title": "Connection pool capacity review",
+        "keywords": [
+          "pool",
+          "connections",
+          "capacity",
+          "timeout"
+        ],
+        "text": "Review aggregate target replica connections against database headroom; verify peak load and holding time. Never infer causal certainty from a configuration diff.",
+        "valid_from": "2026-01-01T00:00:00+08:00",
+        "valid_until": "2027-01-01T00:00:00+08:00"
+      }
+    },
+    {
+      "id": "safe-case",
+      "kind": "incident_case",
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "timestamp": "2026-10-30T09:55:00+08:00",
+      "synthetic": true,
+      "content": {
+        "verified": true,
+        "summary": "Synthetic previously reviewed pool timeout incident; check connection headroom and effective runtime settings. Historical cases are not proof of the proposed release outcome.",
+        "original_change_id": "historical-synthetic-001",
+        "keywords": [
+          "pool",
+          "timeout",
+          "capacity"
+        ]
+      }
+    }
+  ],
+  "tool_records": [
+    {
+      "name": "get_release_snapshot",
+      "ok": true,
+      "duration_ms": 60.471,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_config_diff",
+      "ok": true,
+      "duration_ms": 60.337,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_code_diff",
+      "ok": true,
+      "duration_ms": 59.671,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_ci_checks",
+      "ok": true,
+      "duration_ms": 59.558,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "get_dependency_budget",
+      "ok": true,
+      "duration_ms": 60.823,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "search_runbooks",
+      "ok": true,
+      "duration_ms": 61.16,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    },
+    {
+      "name": "search_incident_cases",
+      "ok": true,
+      "duration_ms": 60.847,
+      "evidence_count": 1,
+      "mcp_transport": "inprocess",
+      "cache_hit": false
+    }
+  ],
+  "policy_findings": [],
+  "analysis": {
+    "summary": "脚本演示：请结合规则检查和证据完成人工评审；本程序不批准发布。",
+    "risks": [
+      {
+        "title": "配置、测试与依赖容量需要联合复核",
+        "detail": "这是脚本演示产生的风险复核方向；它不构成发布批准，不能替代程序规则检查。",
+        "evidence_ids": [
+          "safe-config"
+        ],
+        "verification": [
+          "对照本次变更的实际配置、测试结果和依赖容量，补充独立验证记录。"
+        ]
+      }
+    ],
+    "missing_evidence": [],
+    "process_checks": [
+      "核查是否具备容量评估、回退方案和测试记录。"
+    ]
+  },
+  "analysis_source": "scripted_demo",
+  "quality_issues": [],
+  "model_calls": [
+    {
+      "source": "scripted_demo",
+      "scripted": true,
+      "attempts": 0,
+      "success": true,
+      "usage": {
+        "prompt_tokens": null,
+        "completion_tokens": null,
+        "total_tokens": null,
+        "cached_prompt_tokens": null
+      },
+      "latency_ms": 3.427
+    }
+  ],
+  "decision": "review_acknowledged",
+  "status": "review_acknowledged",
+  "review_digest": "3f9c9c2228cec2f5a423ae9e404a3567aaf77a2d3dc9e31810e519caa8cd9dde",
+  "review_record": {
+    "reviewer": "scripted-test-reviewer",
+    "decision": "acknowledge",
+    "comment": "自动化演示意见，非真实人工审核",
+    "proposed_digest": "3f9c9c2228cec2f5a423ae9e404a3567aaf77a2d3dc9e31810e519caa8cd9dde",
+    "reviewed_at": "2026-10-30T07:47:50.482517+00:00",
+    "scope": {
+      "change_id": "safe",
+      "service": "order-service",
+      "environment": "staging",
+      "snapshot_id": "release-demo-2026-10-v1"
+    },
+    "outcome": "review_acknowledged",
+    "production_approval": false,
+    "record_type": "release_risk_report_review"
+  },
+  "deployment_approved": false,
+  "execution": {
+    "last_command_elapsed_ms": 80.482,
+    "coordinator": {
+      "backend": "local",
+      "durability": "process_memory_only",
+      "cache_hits": 0,
+      "cache_misses": 0,
+      "cache_entries": 0,
+      "active_locks": 1,
+      "queue_total": 0,
+      "queue_pending": 0
+    }
+  },
+  "review_id": "verify-safe",
+  "metadata": {
+    "mode": "demo",
+    "coordination": "local"
+  }
+}
